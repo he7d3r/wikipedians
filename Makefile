@@ -11,6 +11,6 @@ data/ptwiki-20200501-monthy-main-user-edits-5+.csv: \
 		data/ptwiki-20200501-monthy-user-edits-5+.csv
 	cat $< | ./wikipedians/utilities/filter.py --ns=0 --verbose > $@
 
-data/ptwiki-20200501-pivot-table-monthy-user-edits-5+.csv: \
+data/ptwiki-20200501-pivot-table-monthy-main-user-edits-5+.csv: \
 		data/ptwiki-20200501-monthy-main-user-edits-5+.csv
 	cat $< | ./wikipedians/utilities/pivot_table.py --verbose > $@
