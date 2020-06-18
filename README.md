@@ -1,14 +1,19 @@
 # wikipedians
+
 wikipedians helps us explore patterns in wikipedians' edits.
 
-# Examples
-## Extract revision metadata from dump
-```
+## Examples
+
+### Extract revision metadata from dump
+
+```bash
 ./wikipedians/utilities/extract_rev_data.py \
-	data/ptwiki-20200501-stub-meta-history*.xml.gz --debug --verbose > \
-		data/edits-1.json
+    data/ptwiki-20200501-stub-meta-history*.xml.gz --debug --verbose > \
+        data/edits-1.json
 ```
+
 Example output:
+
 ```JSON
 {"t": 1577700000, "u": "Alice", "n": 0}
 {"t": 1577800000, "u": "Alice", "n": 0}
@@ -22,14 +27,16 @@ Example output:
 {"t": 1578200000, "u": "Bob", "n": 4}
 ```
 
+### Aggregate user edits
 
-## Aggregate user edits
 Get total number of edits by month, user and namespace, for users with at least
 5 edits:
-```
+
+```bash
 cat data/edits-1.json | ./wikipedians/utilities/aggregate.py --min-edits=2 \
-	--verbose > data/edits-2.csv
+    --verbose > data/edits-2.csv
 ```
+
 Example output:
 | timestamp  | user  | namespace | edits |
 |------------|-------|-----------|-------|
@@ -42,12 +49,15 @@ Example output:
 | 2020-01-04 | Alice | 0         | 1     |
 | 2020-01-05 | Bob   | 4         | 1     |
 
-## Restrict the edits to specific namespaces
+### Restrict the edits to specific namespaces
+
 Discard edits outside the main (article) namespace:
-```
+
+```bash
 cat data/edits-2.csv | ./wikipedians/utilities/filter.py --ns=0 --verbose > \
-	data/edits-3.csv
+    data/edits-3.csv
 ```
+
 Example output:
 | timestamp  | user  | edits |
 |------------|-------|-------|
@@ -57,12 +67,15 @@ Example output:
 | 2020-01-02 | Bob   | 1     |
 | 2020-01-04 | Alice | 1     |
 
-## Generate a pivot table
+### Generate a pivot table
+
 Create a column for each period and a row for each user
-```
+
+```bash
 cat data/edits-3.csv | ./wikipedians/utilities/pivot_table.py --verbose > \
-	data/edits-4.csv
+    data/edits-4.csv
 ```
+
 Example output:
 | user  | 2019-12-30 | 2019-12-31 | 2020-01-01 | 2020-01-02 | 2020-01-04 |
 |-------|------------|------------|------------|------------|------------|
